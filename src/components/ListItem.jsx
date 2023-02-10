@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewJob } from "../store/jobSlice";
 import { useForm } from "antd/es/form/Form";
 import { StrictDroppable } from "./StrictDroppable";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 function ListItems({ jobsList, listId, title, provided }) {
   console.log({listId})
   const [form] = useForm();
@@ -89,7 +89,7 @@ function ListItems({ jobsList, listId, title, provided }) {
               <PlusOutlined className="text-sm " />
             </Button>
             <div className="mt-2   overflow-y-auto h-full overflow-auto flex-1 flex flex-col ">
-              <StrictDroppable droppableId={String(listId)} type="job">
+              <Droppable droppableId={String(listId)} type="job">
                 {(provided) => (
                   <div
                     className="gap-2 flex flex-col  flex-1"
@@ -109,7 +109,7 @@ function ListItems({ jobsList, listId, title, provided }) {
                     {provided.placeholder}
                   </div>
                 )}
-              </StrictDroppable>
+              </Droppable>
             </div>
 
             <Modal

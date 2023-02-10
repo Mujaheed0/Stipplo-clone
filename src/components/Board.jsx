@@ -1,7 +1,7 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Card, Input } from "antd";
 import React from "react";
-import { DragDropContext, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -69,7 +69,7 @@ function Board() {
 
         <div className=" flex overflow-x-auto flex-grow h-full pb-3">
           <div className="flex  px-8">
-            <StrictDroppable
+            <Droppable
               droppableId={String("id")}
               type="list"
               direction="horizontal"
@@ -117,7 +117,7 @@ function Board() {
                   {provided.placeholder}
                 </div>
               )}
-            </StrictDroppable>
+            </Droppable>
           </div>{" "}
         </div>
       </div>
