@@ -9,7 +9,7 @@ import { addNewJob } from "../store/jobSlice";
 import { useForm } from "antd/es/form/Form";
 import { StrictDroppable } from "./StrictDroppable";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-function ListItems({ jobsList, listId, title, provided }) {
+function ListItems({ jobsList, listId, title, provided ,searchValue}) {
   console.log({listId})
   const [form] = useForm();
   const [showModal, setShowModal] = useState(false);
@@ -68,10 +68,10 @@ function ListItems({ jobsList, listId, title, provided }) {
   return (
    
        
-          <div className="flex flex-col h-full overflow-auto"  ref={provided.innerRef} 
+          <div className="flex flex-col h-full overflow-auto"  ref={provided?.innerRef} 
          >
             <div className="flex justify-between items-center"  
-          {...provided.dragHandleProps}> 
+          {...provided?.dragHandleProps}> 
               <div className="flex flex-col gap-1">
                 <div>{title}</div>
                 <div>{jobsList.length} jobs</div>
@@ -99,7 +99,7 @@ function ListItems({ jobsList, listId, title, provided }) {
                     {jobsList.length &&
                       jobsList?.map((i, index) => (
                         <>
-                          <JobList
+                          <JobList searchValue={searchValue}
                             key={String(i.id)}
                             index={index}
                             jobData={i}
