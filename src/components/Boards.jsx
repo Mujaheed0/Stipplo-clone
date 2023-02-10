@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { addBoard } from "../store/boardSlice";
+import { Link } from "react-router-dom";
 function Boards() {
   const boards = useSelector((state) => state.board);
   const [form]=useForm();
@@ -44,10 +45,9 @@ function Boards() {
         {Object.keys(boards).map((key,index) => {
         
           return (
-            
-         
+        
               <BoardList key={boards[key]['id']} data={boards[key]}></BoardList>
-      
+          
           );
         })}
       </div>

@@ -6,6 +6,7 @@ import ModalForm from './ModalForm'
 import { useForm } from "antd/es/form/Form";
 import { useDispatch } from "react-redux";
 import { deleteBoard, updateBoard } from "../store/boardSlice";
+import { Link, NavLink } from "react-router-dom";
 function BoardList({data}) {
   const [form]=useForm();
   const [open, setOpen] = useState(false);
@@ -47,18 +48,18 @@ let dispatch=useDispatch();
     form.resetFields()
   };
     const [show,setShow]=useState(true);
-  return (
-    <div onMouseLeave={()=>setShow(false)} onMouseEnter={(e)=>setShow(true)} className="w-full rounded-xl  hover:shadow-xl bg-gray-100 h-28  px-5 py-3 flex justify-between">
-      <div  className="flex flex-col gap-2 w-full">
+  return (<>
+    <div  onMouseLeave={()=>setShow(false)}  onMouseEnter={(e)=>setShow(true)} className="w-full relative  rounded-xl no-underline  hover:shadow-xl  bg-gray-100 h-28  px-5 py-3 flex justify-between">
+      <NavLink to={`/board/${data.id}`} className="flex flex-col gap-2 w-full no-underline justify-center">
         <div className="text-gray-500 ">{data.dateCreated}</div>
-        <div className="font-bold ">{data.name}</div>
+        <div className="font-bold text-gray-800 ">{data.name}</div>
         <div className="text-gray-700">{data.lists.length} applications</div>
       
-      </div>
-     {show&& <div className=" text-xl flex justify-between items-center mr-5 w-20">
-     <EditOutlined onClick={() =>{ setOpen(true);setTitle("Rename Board Name")}} className="hover:shadow-lg hover:bg-white hover:text-red-500 rounded-md p-2"  />
+      </NavLink>
+     {show&& <div className=" text-xl  flex justify-between items-center top-0  mr-5 w-20">
+     <EditOutlined onClick={() =>{ setOpen(true);setTitle("Rename Board Name")}} className="hover:shadow-lg hover:bg-white  hover:text-gray-500 text-gray-400 rounded-md p-2"  />
     
-      <DeleteOutlined  className="hover:shadow-lg hover:bg-white hover:text-red-500 rounded-md p-2" onClick={() =>{ setOpen(true);setTitle(`Delete Board -${data.name}`);setisDelete(true);}}/>
+      <DeleteOutlined  className="hover:shadow-lg text-gray-400 hover:bg-white hover:text-red-500 rounded-md p-2" onClick={() =>{ setOpen(true);setTitle(`Delete Board -${data.name}`);setisDelete(true);}}/>
       </div>}
       <Modal
         title={title}
@@ -69,9 +70,10 @@ let dispatch=useDispatch();
       >
        {!isDelete&& <ModalForm form={form} data={{name:data.name}}  handleOk={handleOk}></ModalForm>}
       </Modal>
+</div>
+    </>
     
     
-    </div>
   );
 }
 
