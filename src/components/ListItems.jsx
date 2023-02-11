@@ -124,7 +124,7 @@ function ListItems({ jobsList, listId, title, provided, searchValue }) {
                   <>
                     <JobList
                       searchValue={searchValue}
-                      key={String(i.id)}
+                      key={String(i?.id)}
                       index={index}
                       jobData={i}
                     ></JobList>
