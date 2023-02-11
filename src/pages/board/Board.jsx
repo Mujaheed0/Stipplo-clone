@@ -1,14 +1,13 @@
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Card } from "antd";
+import { BackwardOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { listSort } from "../store/boardSlice";
-import { sort } from "../store/listSlice";
-import ListItems from "./ListItem";
-import Input from "./Input";
+import { useNavigate, useParams } from "react-router-dom";
+import Input from "../../components/Input";
+import ListItems from "../../components/ListItems";
+import { listSort } from "../../store/slice/boardSlice";
+import { sort } from "../../store/slice/listSlice";
 function Board() {
   const [searchValue, setSearchValue] = useState("");
   let params = useParams();
@@ -20,6 +19,7 @@ function Board() {
   const lists = useSelector((state) => state.list);
   const jobs = useSelector((state) => state.job);
   let dispatch = useDispatch();
+  const navigate = useNavigate();
   if (!board) return <div>Board Not Found</div>;
   const listOrder = board.lists;
 
@@ -57,6 +57,7 @@ function Board() {
           droppableIndexStart: source.index,
           draggableId,
           type,
+          boardId: boardId,
         })
       );
     dispatch(
@@ -66,6 +67,8 @@ function Board() {
         droppableIndexEnd: destination.index,
         droppableIndexStart: source.index,
         draggableId,
+
+        boardId: boardId,
         type,
       })
     );
@@ -74,7 +77,13 @@ function Board() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="w-full h-full overflow-y-hidden mt-4 bg-gray-50 flex flex-col gap-3">
-        <h3 className="px-8 max-w-sm">{board.name}</h3>
+        <div className="flex px-8 gap-3">
+          <BackwardOutlined
+            className="text-xl"
+            onClick={() => navigate({ pathname: "/" })}
+          ></BackwardOutlined>
+          <h3 className=" max-w-sm">{board.name}</h3>
+        </div>
         <div className=" pl-8 max-w-sm flex">
           <Input setFilterSearch={searchFilter}></Input>
         </div>

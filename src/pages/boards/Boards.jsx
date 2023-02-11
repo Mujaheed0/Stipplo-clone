@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import "antd/dist/reset.css";
-import BoardList from "./BoardList";
-import ModalForm from "./ModalForm";
+import BoardList from "../../components/BoardList";
+import ModalForm from "../../components/ModalForm";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { addBoard } from "../store/boardSlice";
-import { Link } from "react-router-dom";
+import { addBoard } from "../../store/slice/boardSlice";
 function Boards() {
   const boards = useSelector((state) => state.board);
-  const [form]=useForm();
-  const dispatch=useDispatch()
+  const [form] = useForm();
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const handleOk = () => {
-    
-    const boardName=form.getFieldsValue()['Name'];
+    const boardName = form.getFieldsValue()["Name"];
     setConfirmLoading(true);
-  dispatch(addBoard({id:boardName,name:boardName}));
+    dispatch(addBoard({ id: boardName, name: boardName }));
     setTimeout(() => {
       setShowModal(false);
       setConfirmLoading(false);
@@ -42,12 +40,9 @@ function Boards() {
         >
           + Add a new Board
         </Button>
-        {Object.keys(boards).map((key,index) => {
-        
+        {Object.keys(boards).map((key, index) => {
           return (
-        
-              <BoardList key={boards[key]['id']} data={boards[key]}></BoardList>
-          
+            <BoardList key={boards[key]["id"]} data={boards[key]}></BoardList>
           );
         })}
       </div>

@@ -1,10 +1,12 @@
-import Boards from "./components/Boards";
+
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import "antd/dist/reset.css";
-import Board from "./components/Board";
+
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Board from "./pages/board/Board";
+import Boards from "./pages/boards/Boards";
 export default function App() {
   const [showSideBar, setShowSideBar] = useState(false);
   return (

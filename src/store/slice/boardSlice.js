@@ -1,5 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-import { sort } from "./listSlice";
+import { createSlice } from "@reduxjs/toolkit";
 
 const boardSlice = createSlice({
   name: "board",
@@ -7,14 +6,14 @@ const boardSlice = createSlice({
     "board-0": {
       id: "board-0",
       lists: ["list-0", "list-1", "list-2", "list-3"],
-      name: "My Board",
-      dateCreated: new Date().toLocaleDateString(),
+      name: "My Board 0",
+      createdAt: new Date().getTime(),
     },
     "board-1": {
       id: "board-1",
-      lists: ["list-0", "list-1", "list-2", "list-3"],
-      name: "My Board",
-      dateCreated: new Date().toLocaleDateString(),
+      lists: ["list-4", "list-5", "list-6", "list-7"],
+      name: "My Board 1",
+      createdAt: new Date().getTime(),
     },
   },
   reducers: {
@@ -24,7 +23,7 @@ const boardSlice = createSlice({
       const newBoard = {
         name,
         id: newId,
-        dateCreated: new Date().toLocaleDateString(),
+        createdAt: new Date().getTime(),
         lists: [],
       };
       state[newId] = newBoard;
@@ -39,31 +38,21 @@ const boardSlice = createSlice({
       const { id } = payload;
       delete state[id];
     },
-    listSort:(state,{payload})=>{
-      
-      const {
-        droppableIdStart,
-        droppableIdEnd,
-        droppableIndexEnd,
-        droppableIndexStart,
-        type,
-        boardId,
-      } = payload;
+    listSort: (state, { payload }) => {
+      const { droppableIndexEnd, droppableIndexStart, type, boardId } = payload;
 
       // draggin lists around - the listOrderReducer should handle this
       if (type === "list") {
-        const [removed]= state['board-1'].lists.splice(droppableIndexStart,1);
-        state['board-1'].lists.splice(droppableIndexEnd,0,removed);
-
+        const [removed] = state[boardId].lists.splice(droppableIndexStart, 1);
+        state[boardId].lists.splice(droppableIndexEnd, 0, removed);
       }
-    }
+    },
   },
   extraReducers(builder) {
-    builder.addCase(listSort, (state, action) => {
-    
-    });
+    builder.addCase(listSort, (state, action) => {});
   },
 });
-export const { addBoard, updateBoard, deleteBoard,listSort } = boardSlice.actions;
+export const { addBoard, updateBoard, deleteBoard, listSort } =
+  boardSlice.actions;
 
 export default boardSlice.reducer;
